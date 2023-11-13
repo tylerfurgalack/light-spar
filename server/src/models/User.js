@@ -26,10 +26,25 @@ class User extends uniqueFunc(Model) {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["email"],
+      required: ["email", "username", "weight", "location"],
       properties: {
         email: { type: "string", pattern: "^\\S+@\\S+\\.\\S+$" },
         cryptedPassword: { type: "string" },
+        username: { type: "string", minLength: 2 },
+        image: { type: "string" },
+        location: { type: "string" },
+        description: { type: "string" },
+        weight: {
+          anyOf: [
+            {
+              type: "integer",
+            },
+            {
+              type: "string",
+              pattern: "^(?:[0-9]|[1-9][0-9]|[1-3][0-9]{2}|400)$",
+            },
+          ],
+        },
       },
     };
   }
