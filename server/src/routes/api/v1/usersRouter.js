@@ -6,6 +6,16 @@ import { ValidationError } from "objection";
 
 const usersRouter = new express.Router();
 
+usersRouter.get("/", async (req, res) => {
+  try {
+    const users = await User.query();
+
+    res.status(200).json({ users: users });
+  } catch (error) {
+    res.status(500).json({ errors: error });
+  }
+});
+
 usersRouter.post("/", async (req, res) => {
   const { email, password, passwordConfirmation } = req.body;
   try {
