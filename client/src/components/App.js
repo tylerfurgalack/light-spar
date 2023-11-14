@@ -9,6 +9,8 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import UsersList from "./UsersList";
+import UserProfile from "./UserProfile";
+import ProfileShow from "./ProfileShow";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -29,12 +31,24 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path="/">
-          <h2>Hello from react</h2>
-        </Route>
+        <AuthenticatedRoute exact path="/" component={UsersList} user={currentUser} />
+
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
-        <AuthenticatedRoute exact path="/users" component={UsersList} user={currentUser} />
+        <AuthenticatedRoute
+          exact
+          path="/profile"
+          component={UserProfile}
+          user={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
+        <Route
+          exact
+          path="/users/:id"
+          render={(props) => {
+            return <ProfileShow user={currentUser} {...props} />;
+          }}
+        />
       </Switch>
     </Router>
   );
