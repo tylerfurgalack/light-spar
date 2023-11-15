@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "passport";
 
-import { User } from "../../../models/index.js";
+import { User, Chat } from "../../../models/index.js";
 import { ValidationError } from "objection";
 
 const usersRouter = new express.Router();
@@ -11,6 +11,25 @@ usersRouter.get("/", async (req, res) => {
     const users = await User.query();
 
     res.status(200).json({ users: users });
+  } catch (error) {
+    res.status(500).json({ errors: error });
+  }
+});
+
+usersRouter.get("/chats", async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const userChats = await Chat.query().where("senderId", userId).orWhere("receiverId", userId);
+
+    // Extracting user IDs involved in chats
+    const userIDs = userChats.map((chat) => {
+      return chat.senderId !== userId ? chat.senderId : chat.receiverId;
+    });
+
+    // Fetch users based on extracted IDs
+    const pairedUsers = await User.query().findByIds(userIDs);
+
+    res.status(200).json({ pairedUsers });
   } catch (error) {
     res.status(500).json({ errors: error });
   }

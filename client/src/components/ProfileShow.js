@@ -23,6 +23,7 @@ const ProfileShow = (props) => {
       <h3>{profile.username}</h3>
       <h4>Weight: {profile.weight}</h4>
       <p>description: {profile.description}</p>
+      <button className="button">Invite</button>
     </div>
   );
 };

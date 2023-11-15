@@ -18,6 +18,7 @@ const TopBar = ({ user }) => {
     <li key="sign-out">
       <Link to="/profile">Your Profile</Link>
       <SignOutButton />
+      <Link to="/users/chats">Partners</Link>
     </li>,
   ];
 
@@ -26,7 +27,7 @@ const TopBar = ({ user }) => {
       <div className="top-bar-left">
         <ul className="menu">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">New Fighters</Link>
           </li>
         </ul>
       </div>
