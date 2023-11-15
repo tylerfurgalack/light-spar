@@ -11,6 +11,7 @@ import AuthenticatedRoute from "./authentication/AuthenticatedRoute";
 import UsersList from "./UsersList";
 import UserProfile from "./UserProfile";
 import ProfileShow from "./ProfileShow";
+import ChatsList from "./ChatsList";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -42,6 +43,8 @@ const App = (props) => {
           user={currentUser}
           setCurrentUser={setCurrentUser}
         />
+
+        <AuthenticatedRoute exact path="/users/chats" component={ChatsList} user={currentUser} />
         <Route
           exact
           path="/users/:id"
