@@ -3,14 +3,30 @@ import passport from "passport";
 
 import { User, Chat } from "../../../models/index.js";
 import { ValidationError } from "objection";
+import uploadImage from "../../../services/uploadImage.js";
 
 const usersRouter = new express.Router();
 
 usersRouter.get("/", async (req, res) => {
   try {
-    const users = await User.query();
+    const userId = req.user.id;
+    const userChats = await Chat.query().where("senderId", userId).orWhere("receiverId", userId);
 
-    res.status(200).json({ users: users });
+    // Extracting user IDs involved in chats
+    const userIDs = userChats.reduce((ids, chat) => {
+      if (chat.senderId !== userId) {
+        ids.push(chat.senderId);
+      }
+      if (chat.receiverId !== userId) {
+        ids.push(chat.receiverId);
+      }
+      return ids;
+    }, []);
+
+    // Fetch users based on extracted IDs
+    const newUsers = await User.query().whereNotIn("id", [userId, ...userIDs]);
+
+    res.status(200).json({ newUsers });
   } catch (error) {
     res.status(500).json({ errors: error });
   }
@@ -47,12 +63,32 @@ usersRouter.get("/:id", async (req, res) => {
 });
 
 usersRouter.post("/", async (req, res) => {
-  const { email, password, passwordConfirmation } = req.body;
+  const { username, weight, location, email, password, passwordConfirmation } = req.body;
   try {
-    const persistedUser = await User.query().insertAndFetch({ email, password });
+    const persistedUser = await User.query().insertAndFetch({
+      username,
+      weight,
+      location,
+      email,
+      password,
+    });
     return req.login(persistedUser, () => {
       return res.status(201).json({ user: persistedUser });
     });
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return res.status(422).json({ errors: error.data });
+    }
+    return res.status(500).json({ errors: error });
+  }
+});
+
+usersRouter.patch("/:id", uploadImage.single("image"), async (req, res) => {
+  try {
+    const user = req.user;
+    const newImage = req.file.location;
+    const body = await user.$query().patchAndFetch({ image: newImage });
+    return res.status(201).json({ body });
   } catch (error) {
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data });

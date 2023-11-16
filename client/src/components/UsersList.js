@@ -13,7 +13,7 @@ const UsersList = () => {
         throw error;
       }
       const body = await response.json();
-      setUsers(body.users);
+      setUsers(body.newUsers);
     } catch (err) {
       console.error(`Error in fetch: ${err.message}`);
     }

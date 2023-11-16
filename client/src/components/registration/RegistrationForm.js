@@ -6,6 +6,9 @@ import config from "../../config";
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
+    username: "",
+    weight: "",
+    location: "",
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -19,9 +22,35 @@ const RegistrationForm = () => {
 
   const validateInput = (payload) => {
     setErrors({});
-    const { email, password, passwordConfirmation } = payload;
+    const { email, password, passwordConfirmation, username, weight, location } = payload;
     const emailRegexp = config.validation.email.regexp;
     let newErrors = {};
+
+    if (username.trim() === "") {
+      newErrors = {
+        username: "is required",
+        ...newErrors,
+      };
+    }
+
+    if (location.trim() === "") {
+      newErrors = {
+        location: "is required",
+        ...newErrors,
+      };
+    }
+
+    if (weight === "") {
+      newErrors = {
+        weight: "is required",
+        ...newErrors,
+      };
+    } else if (!Number.isInteger(Number(weight))) {
+      newErrors = {
+        weight: "must be an integer",
+        ...newErrors,
+      };
+    }
 
     if (!email.match(emailRegexp)) {
       newErrors = {
@@ -105,6 +134,32 @@ const RegistrationForm = () => {
       <h1>Register</h1>
       <ErrorList errors={serverErrors} />
       <form onSubmit={onSubmit}>
+        <div>
+          <label>Your User Name</label>
+          <input
+            type="text"
+            name="username"
+            value={userPayload.username}
+            onChange={onInputChange}
+          />
+          <FormError error={errors.username} />
+        </div>
+        <div>
+          <label>Your Weight</label>
+          <input type="integer" name="weight" value={userPayload.weight} onChange={onInputChange} />
+          <FormError error={errors.weight} />
+        </div>
+        <div>
+          <label>Your Location</label>
+          <input
+            type="text"
+            name="location"
+            value={userPayload.location}
+            onChange={onInputChange}
+          />
+          <FormError error={errors.location} />
+        </div>
+
         <div>
           <label>
             Email

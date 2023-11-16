@@ -19,7 +19,7 @@ const ProfileShow = (props) => {
 
   return (
     <div>
-      <img className="profile-pic"></img>
+      <img className="profile-pic" src={profile.image}></img>
       <h3>{profile.username}</h3>
       <h4>Weight: {profile.weight}</h4>
       <p>description: {profile.description}</p>
