@@ -13,8 +13,6 @@ const ProfileShow = (props) => {
 
   const profileId = props.computedMatch.params.id;
 
-  console.log(props);
-
   useEffect(() => {
     getForeignUser(profileId).then((parseProfileData) => {
       setProfile(parseProfileData);
