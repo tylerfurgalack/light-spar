@@ -44,13 +44,15 @@ const App = (props) => {
           setCurrentUser={setCurrentUser}
         />
 
-        <AuthenticatedRoute exact path="/users/chats" component={ChatsList} user={currentUser} />
-        <Route
+        <AuthenticatedRoute exact path="/chats" component={ChatsList} user={currentUser} />
+        <AuthenticatedRoute
           exact
           path="/users/:id"
-          render={(props) => {
-            return <ProfileShow user={currentUser} {...props} />;
-          }}
+          // render={(props) => {
+          //   return <ProfileShow user={currentUser} {...props} />;
+          // }}
+          user={currentUser}
+          component={ProfileShow}
         />
       </Switch>
     </Router>
