@@ -7,7 +7,7 @@ const ChatsList = () => {
 
   const getUsersForChats = async () => {
     try {
-      const response = await fetch(`/api/v1/users/chats`);
+      const response = await fetch(`/api/v1/chats`);
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`;
         const error = new Error(errorMessage);
