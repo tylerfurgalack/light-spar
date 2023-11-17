@@ -10,6 +10,7 @@ class UserSeeder {
         weight: "185",
         location: "Boston MA",
         description: `Im a 6'7 striker who trains in Muay Thai and boxing look for light sparring and exchanging knowledge.`,
+        image: "https://light-spar-development.s3.amazonaws.com/1700158460683",
       },
       {
         email: "ironmike@gmail.com",
@@ -18,6 +19,7 @@ class UserSeeder {
         weight: "220",
         location: "Catskill NY",
         description: "Everyone has a plan 'till they get punched in the mouth.",
+        image: "https://light-spar-development.s3.amazonaws.com/tyson.jpeg",
       },
       {
         email: "stamp@gmail.com",
@@ -27,6 +29,7 @@ class UserSeeder {
         location: "Bangkok",
         description:
           "I just want to show the world that even in a field that is dominated by men, that women like us can shine and make a name for ourselves",
+        image: "https://light-spar-development.s3.amazonaws.com/stamp.jpeg",
       },
       {
         email: "ippo@gmail.com",
@@ -36,6 +39,7 @@ class UserSeeder {
         location: "Tokyo",
         description:
           "Not everyone who works hard is rewarded. But! All those who succeed have worked hard!",
+        image: "https://light-spar-development.s3.amazonaws.com/ippo.jpeg",
       },
       {
         email: "foppiano@gmail.com",
@@ -44,6 +48,7 @@ class UserSeeder {
         weight: "140",
         location: "Everett, MA",
         description: "Pro Boxer training out of Boston area looking to sharpen my skill.",
+        image: "https://light-spar-development.s3.amazonaws.com/shayna.jpeg",
       },
       {
         email: "marvelous@gmail.com",
@@ -53,6 +58,7 @@ class UserSeeder {
         location: "Brockton, MA",
         description:
           "It's difficult to get up and do roadwork at five in the morning when you're sleeping in silk sheets.",
+        image: "https://light-spar-development.s3.amazonaws.com/marvelous.jpeg",
       },
       {
         email: "rodtang@gmail.com",
@@ -61,6 +67,7 @@ class UserSeeder {
         weight: "134",
         location: "Bangkok",
         description: "Indestructible at my worst, unstoppable at my best",
+        image: "https://light-spar-development.s3.amazonaws.com/rodtang.jpeg",
       },
       {
         email: "theGoat@gmail.com",
@@ -69,6 +76,34 @@ class UserSeeder {
         weight: "236",
         location: "Louisville, KY",
         description: "Float like a butterfly sting like a bee",
+        image: "https://light-spar-development.s3.amazonaws.com/ali.jpeg",
+      },
+      {
+        email: "glassjoe@gmail.com",
+        username: "Glass Joe",
+        password: "1stfight",
+        weight: "110",
+        location: "Boston MA",
+        description: "Watch the jaw!! Don't hit my jaw!",
+        image: "https://light-spar-development.s3.amazonaws.com/glassjoe.png",
+      },
+      {
+        email: "mac@gmail.com",
+        username: "Little Mac",
+        password: "jabjabjab",
+        weight: "107",
+        location: "Boston MA",
+        description: "Piece of cake!",
+        image: "https://light-spar-development.s3.amazonaws.com/littlemac.png",
+      },
+      {
+        email: "bobby@gmail.com",
+        username: "Bobby Flynn",
+        password: "bobby",
+        weight: "171",
+        location: "Boston MA",
+        description: "MMA fighter looking for all kinds of sparring!",
+        image: "https://light-spar-development.s3.amazonaws.com/bobby.jpeg",
       },
     ];
 

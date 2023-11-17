@@ -100,12 +100,16 @@ const ProfileShow = (props) => {
 
   const onDeleteClickHandler = (event) => {
     event.preventDefault();
-    const deleteChat = {
-      senderId: props.user.id,
-      receiverId: profile.id,
-    };
+    const prompt = window.confirm("Are you sure you want to delete this partner?");
 
-    deleteCurrentChat(deleteChat);
+    if (prompt) {
+      const deleteChat = {
+        senderId: props.user.id,
+        receiverId: profile.id,
+      };
+
+      deleteCurrentChat(deleteChat);
+    }
   };
 
   return (

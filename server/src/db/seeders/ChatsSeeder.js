@@ -10,16 +10,16 @@ class ChatsSeeder {
     const marvin = await User.query().findById(6);
     const rodtang = await User.query().findById(7);
     const ali = await User.query().findById(8);
+    const glassjoe = await User.query().findById(9);
+    const mac = await User.query().findById(10);
+    const bobby = await User.query().findById(11);
 
     const chatsData = [
       {
-        senderId: tyler.id,
-        receiverId: mike.id,
+        senderId: mike.id,
+        receiverId: tyler.id,
       },
-      {
-        senderId: tyler.id,
-        receiverId: stamp.id,
-      },
+
       {
         senderId: tyler.id,
         receiverId: ippo.id,
@@ -28,6 +28,19 @@ class ChatsSeeder {
         senderId: tyler.id,
         receiverId: shayna.id,
       },
+      {
+        senderId: ippo.id,
+        receiverId: glassjoe.id,
+      },
+      { senderId: glassjoe.id, receiverId: rodtang.id },
+      { senderId: rodtang.id, receiverId: stamp.id },
+      { senderId: mac.id, receiverId: glassjoe.id },
+      { senderId: mac.id, receiverId: mike.id },
+      { senderId: ali.id, receiverId: mike.id },
+      { senderId: shayna.id, receiverId: bobby.id },
+      { senderId: ippo.id, receiverId: mike.id },
+      { senderId: marvin.id, receiverId: bobby.id },
+      { senderId: ippo.id, receiverId: marvin.id },
     ];
 
     for (const chat of chatsData) {
