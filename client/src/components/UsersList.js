@@ -27,7 +27,11 @@ const UsersList = () => {
     return <ProfileTile key={profile.id} profile={profile} />;
   });
 
-  return <>{usersProfileList}</>;
+  return (
+    <div className="grid-container card-container ">
+      <div className="grid-x grid-margin-x">{usersProfileList}</div>
+    </div>
+  );
 };
 
 export default UsersList;
