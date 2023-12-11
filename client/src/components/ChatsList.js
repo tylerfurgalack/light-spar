@@ -27,7 +27,11 @@ const ChatsList = () => {
   const usersProfileChatsList = users.map((profile) => {
     return <ProfileTile key={profile.id} profile={profile} />;
   });
-  return <>{usersProfileChatsList}</>;
+  return (
+    <div className="grid-container">
+      <div className="grid-x grid-margin-x">{usersProfileChatsList}</div>
+    </div>
+  );
 };
 
 export default ChatsList;

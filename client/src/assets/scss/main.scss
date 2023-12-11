@@ -1,6 +1,7 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 // place global css here
 *,
 *::before,
@@ -13,10 +14,73 @@
   tab-size: 4;
 }
 
+body {
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.top-bar-font {
+  font-size: 10px;
+  font-weight: lighter;
+}
+
+.smaller-font {
+  font-size: 14px;
+  font-weight: lighter;
+}
 .profile-pic {
   background-color: grey;
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
   border: solid 2px gray;
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-around; /* Adjust alignment as needed */
+  margin: 2%;
+}
+
+.rounded-image {
+  width: 150px; /* Set a specific width */
+  height: 150px; /* Set a specific height */
+  border: 3px solid #ccc;
+  border-radius: 50%; /* Make the image a circle */
+  object-fit: cover; /* Maintain aspect ratio and fill the container */
+}
+
+.card-container {
+  margin-top: 2%;
+}
+
+.cardStyle {
+  width: 25%;
+  /* Add more styles as needed */
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: 0 auto;
+  border: solid black 1px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.form-input {
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid black;
+  min-width: auto;
+  border-radius: 2px;
+}
+
+label {
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }

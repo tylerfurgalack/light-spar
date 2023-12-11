@@ -35,7 +35,7 @@ chatsRouter.get("/exists", async (req, res) => {
       })
       .first();
 
-    res.status(200).json({ exists: !!existingChat });
+    res.status(200).json({ exists: existingChat });
   } catch (error) {
     res.status(500).json({ errors: error });
   }
