@@ -130,13 +130,14 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div className="grid-container">
+    <div className="grid-container form-container">
       <h1>Register</h1>
       <ErrorList errors={serverErrors} />
       <form onSubmit={onSubmit}>
         <div>
           <label>Your User Name</label>
           <input
+            className="form-input"
             type="text"
             name="username"
             value={userPayload.username}
@@ -146,12 +147,19 @@ const RegistrationForm = () => {
         </div>
         <div>
           <label>Your Weight</label>
-          <input type="integer" name="weight" value={userPayload.weight} onChange={onInputChange} />
+          <input
+            className="form-input"
+            type="number"
+            name="weight"
+            value={userPayload.weight}
+            onChange={onInputChange}
+          />
           <FormError error={errors.weight} />
         </div>
         <div>
           <label>Your Location</label>
           <input
+            className="form-input"
             type="text"
             name="location"
             value={userPayload.location}
@@ -163,7 +171,13 @@ const RegistrationForm = () => {
         <div>
           <label>
             Email
-            <input type="text" name="email" value={userPayload.email} onChange={onInputChange} />
+            <input
+              className="form-input"
+              type="text"
+              name="email"
+              value={userPayload.email}
+              onChange={onInputChange}
+            />
             <FormError error={errors.email} />
           </label>
         </div>
@@ -171,6 +185,7 @@ const RegistrationForm = () => {
           <label>
             Password
             <input
+              className="form-input"
               type="password"
               name="password"
               value={userPayload.password}
@@ -183,6 +198,7 @@ const RegistrationForm = () => {
           <label>
             Password Confirmation
             <input
+              className="form-input"
               type="password"
               name="passwordConfirmation"
               value={userPayload.passwordConfirmation}

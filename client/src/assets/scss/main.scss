@@ -26,7 +26,7 @@ body {
 }
 
 .smaller-font {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: lighter;
 }
 .profile-pic {
@@ -58,4 +58,29 @@ body {
 .cardStyle {
   width: 25%;
   /* Add more styles as needed */
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: 0 auto;
+  border: solid black 1px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.form-input {
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid black;
+  min-width: auto;
+  border-radius: 2px;
+}
+
+label {
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
