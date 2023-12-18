@@ -28,7 +28,7 @@ const UsersList = () => {
   });
 
   return (
-    <div className="grid-container card-container ">
+    <div className="grid-container">
       <div className="grid-x grid-margin-x">{usersProfileList}</div>
     </div>
   );

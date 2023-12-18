@@ -27,9 +27,9 @@ const UserProfile = (props) => {
   };
 
   return (
-    <div>
+    <div className="profile-container card">
       <img className="profile-pic" src={props.user.image}></img>
-      <form onSubmit={addProfileImage}>
+      <form className="profile-pic-form" onSubmit={addProfileImage}>
         <Dropzone onDrop={handleImageUpload}>
           {({ getRootProps, getInputProps }) => (
             <section>
@@ -42,7 +42,7 @@ const UserProfile = (props) => {
             </section>
           )}
         </Dropzone>
-        <input className="submit-pic-button" type="submit"></input>
+        <input className="button" type="submit"></input>
       </form>
       <h3>{props.user.username}</h3>
       <h4>Weight: {props.user.weight}lbs</h4>
