@@ -145,10 +145,8 @@ const RegistrationForm = () => {
         inputRef.current,
         options
       );
-      console.log(`adding listener`);
       autoCompleteRef.current.addListener("place_changed", () => {
         const selectedPlace = autoCompleteRef.current.getPlace();
-        console.log(selectedPlace);
         if (selectedPlace && selectedPlace.formatted_address) {
           console.log(`google listener`, userPayload);
           setUserPayload((userPayloadPending) => {
@@ -163,7 +161,6 @@ const RegistrationForm = () => {
 
     loadScript();
   }, []);
-  console.log(`render`, userPayload);
   return (
     <div className="grid-container form-container">
       <h1>Register</h1>
