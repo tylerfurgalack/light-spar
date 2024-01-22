@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import ProfileTile from "./ProfileTile";
+import Filter from "./Filter";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
@@ -32,7 +33,7 @@ const UsersList = () => {
         profile.location.toLowerCase().includes(locationFilter.toLowerCase());
 
       const weightClassRange = {
-        flyweight: [108, 114],
+        flyweight: [105, 114],
         bantamweight: [115, 121],
         featherweight: [122, 129],
         lightweight: [130, 139],
@@ -97,25 +98,12 @@ const UsersList = () => {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <label>Location:</label>
-        <input type="text" name="location" onChange={onInputChange} ref={inputRef}></input>
-        <label>Weight:</label>
-        <select name="Weight-Class" onChange={onWeightChange}>
-          <option value="">Weight Class</option>
-          <option value="flyweight">Flyweight (108-114lbs)</option>
-          <option value="bantamweight">Bantamweight (115-121lbs)</option>
-          <option value="featherweight">Featherweight (122-129lbs)</option>
-          <option value="lightweight">Lightweight (130-139lbs)</option>
-          <option value="welterweight">Welterweight (140-153lbs)</option>
-          <option value="middleweight">Middleweight (154-167lbs)</option>
-          <option value="lightheavyweight">Light Heavyweight (168-199lbs)</option>
-          <option value="heavyweight">Heavyweight (200lbs or more)</option>
-        </select>
-        <div>
-          <input type="submit" className="button" value="Filter" />
-        </div>
-      </form>
+      <Filter
+        onSubmit={onSubmit}
+        onInputChange={onInputChange}
+        onWeightChange={onWeightChange}
+        inputRef={inputRef}
+      />
       <div className="grid-container">
         <div className="grid-x grid-margin-x">{usersProfileList}</div>
       </div>
