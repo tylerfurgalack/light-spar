@@ -51,6 +51,7 @@ const UsersList = () => {
       return locationMatch && weightClassMatch;
     });
 
+    console.log(locationFilter);
     setFilteredProfileList(filteredUsers);
   };
 
@@ -65,29 +66,40 @@ const UsersList = () => {
   const autoCompleteRef = useRef();
   const inputRef = useRef();
 
+  const initMap = () => {
+    const options = {
+      types: ["(cities)"],
+    };
+
+    autoCompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, options);
+    autoCompleteRef.current.addListener("place_changed", () => {
+      const selectedPlace = autoCompleteRef.current.getPlace();
+    });
+  };
+
   useEffect(() => {
     getUsersData();
     const loadScript = () => {
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4&libraries=places&callback=initMap`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4&libraries=places`;
       document.body.appendChild(script);
       script.onload = () => initMap();
     };
 
-    const initMap = () => {
-      const options = {
-        types: ["(cities)"],
-      };
+    // const initMap = () => {
+    //   const options = {
+    //     types: ["(cities)"],
+    //   };
 
-      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-        inputRef.current,
-        options
-      );
-      autoCompleteRef.current.addListener("place_changed", () => {
-        const selectedPlace = autoCompleteRef.current.getPlace();
-      });
-    };
+    //   autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+    //     inputRef.current,
+    //     options
+    //   );
+    //   autoCompleteRef.current.addListener("place_changed", () => {
+    //     const selectedPlace = autoCompleteRef.current.getPlace();
+    //   });
+    // };
 
     loadScript();
   }, []);
