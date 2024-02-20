@@ -6,6 +6,11 @@ import config from "../../config";
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
+    username: "",
+    weight: "",
+    location: "",
+    email: "",
+    password: "",
     passwordConfirmation: "",
   });
 
@@ -127,43 +132,60 @@ const RegistrationForm = () => {
   const autoCompleteRef = useRef();
   const inputRef = useRef();
 
+  const initMap = () => {
+    const options = {
+      types: ["(cities)"],
+    };
+
+    autoCompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, options);
+    autoCompleteRef.current.addListener("place_changed", () => {
+      const selectedPlace = autoCompleteRef.current.getPlace();
+      if (selectedPlace && selectedPlace.formatted_address) {
+        console.log(`google listener`, userPayload);
+        setUserPayload((userPayloadPending) => {
+          return {
+            ...userPayloadPending,
+            location: selectedPlace.formatted_address,
+          };
+        });
+      }
+    });
+  };
+
   useEffect(() => {
     const loadScript = () => {
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4&libraries=places&callback=initMap`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4&libraries=places`;
       document.body.appendChild(script);
       script.onload = () => initMap();
     };
 
-    const initMap = () => {
-      const options = {
-        types: ["(cities)"],
-      };
+    // const initMap = () => {
+    //   const options = {
+    //     types: ["(cities)"],
+    //   };
 
-      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-        inputRef.current,
-        options
-      );
-      console.log(`adding listener`);
-      autoCompleteRef.current.addListener("place_changed", () => {
-        const selectedPlace = autoCompleteRef.current.getPlace();
-        console.log(selectedPlace);
-        if (selectedPlace && selectedPlace.formatted_address) {
-          console.log(`google listener`, userPayload);
-          setUserPayload((userPayloadPending) => {
-            return {
-              ...userPayloadPending,
-              location: selectedPlace.formatted_address,
-            };
-          });
-        }
-      });
-    };
+    //   autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+    //     inputRef.current,
+    //     options
+    //   );
+    //   autoCompleteRef.current.addListener("place_changed", () => {
+    //     const selectedPlace = autoCompleteRef.current.getPlace();
+    //     if (selectedPlace && selectedPlace.formatted_address) {
+    //       console.log(`google listener`, userPayload);
+    //       setUserPayload((userPayloadPending) => {
+    //         return {
+    //           ...userPayloadPending,
+    //           location: selectedPlace.formatted_address,
+    //         };
+    //       });
+    //     }
+    //   });
+    // };
 
     loadScript();
   }, []);
-  console.log(`render`, userPayload);
   return (
     <div className="grid-container form-container">
       <h1>Register</h1>

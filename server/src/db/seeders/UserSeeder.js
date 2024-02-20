@@ -105,6 +105,53 @@ class UserSeeder {
         description: "MMA fighter looking for all kinds of sparring!",
         image: "https://light-spar-development.s3.amazonaws.com/bobby.jpeg",
       },
+      {
+        email: "Buakaw@yahoo.com",
+        username: "Buakaw Banchamek",
+        password: "WhiteLotus",
+        weight: "154",
+        location: "Bangkok, Thailand",
+        description:
+          "When your temper rises lower your fists. When your fists rise lower your temper",
+        image: "https://light-spar-development.s3.amazonaws.com/Bukaw-1-Front.jpeg",
+      },
+      {
+        email: "holly@yahoo.com",
+        username: "Holly Holm",
+        password: "Ho11yR0cks",
+        weight: "134",
+        location: "Albuquerque, NM, USA",
+        description: `If you don't take the opportunities that are presented then how are you ever going to get somewhere?`,
+        image: "https://light-spar-development.s3.amazonaws.com/CTyyU7jUwAA8EdE.png",
+      },
+      {
+        email: "anissagold@gmail.com",
+        username: "Anissa Meksen",
+        password: "goforthegold",
+        weight: "115",
+        location: "Paris, France",
+        description: `I'm just happy to fight. Whoever the opponent is, I don't care. I just want to fight.`,
+        image: "https://light-spar-development.s3.amazonaws.com/meksen.jpeg",
+      },
+      {
+        email: "ryomashiba@gmail.com",
+        username: "Ryo Mashiba",
+        password: "ry00000",
+        weight: "134",
+        location: "Tokyo, Japan",
+        description: `As long as I exist, you'll never make it to the top of the Featherweight class.`,
+        image: "https://light-spar-development.s3.amazonaws.com/Ryo.webp",
+      },
+      {
+        email: "takamurasan@yahoo.com",
+        username: "Mamoru Takamura",
+        password: "12three",
+        weight: "160",
+        location: '"Tokyo, Japan"',
+        description:
+          "The Japanese title is just a stepping stone for me. What I really want is to become world champion.",
+        image: "https://light-spar-development.s3.amazonaws.com/1051101-url232.jpeg",
+      },
     ];
 
     for (const user of usersData) {
