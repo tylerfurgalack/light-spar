@@ -104,7 +104,10 @@ const UsersList = () => {
     loadScript();
   }, []);
 
-  const usersProfileList = filteredProfileList.map((profile) => {
+  const usersProfileList = users.map((profile) => {
+    return <ProfileTile key={profile.id} profile={profile} />;
+  });
+  const filterList = filteredProfileList.map((profile) => {
     return <ProfileTile key={profile.id} profile={profile} />;
   });
 
@@ -117,7 +120,11 @@ const UsersList = () => {
         inputRef={inputRef}
       />
       <div className="grid-container">
-        <div className="grid-x grid-margin-x">{usersProfileList}</div>
+        {filterList.length === 0 ? (
+          <div className="grid-x grid-margin-x">{usersProfileList}</div>
+        ) : (
+          <div className="grid-x grid-margin-x">{filterList}</div>
+        )}
       </div>
     </div>
   );
