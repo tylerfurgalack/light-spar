@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import ProfileTile from "./ProfileTile";
 import Filter from "./Filter";
+import { Loader } from "@googlemaps/js-api-loader";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
@@ -65,6 +66,11 @@ const UsersList = () => {
 
   const autoCompleteRef = useRef();
   const inputRef = useRef();
+
+  const loader = new Loader({
+    apiKey: "AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4",
+    libraries: ["places"],
+  });
 
   const initMap = () => {
     const options = {
