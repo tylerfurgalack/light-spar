@@ -71,39 +71,52 @@ const SignInForm = () => {
   }
 
   return (
-    <div className="grid-container form-container" onSubmit={onSubmit}>
-      <h1>Sign In</h1>
-      <form>
-        <div>
-          <label>
-            Email
-            <input
-              className="form-input"
-              type="text"
-              name="email"
-              value={userPayload.email}
-              onChange={onInputChange}
-            />
-            <FormError error={errors.email} />
-          </label>
+    <div className="sign-in-background">
+      <div className="sign-in-image-container">
+        <img
+          className="sign-in-image"
+          src="https://light-spar-development.s3.amazonaws.com/LogoDesign.png"
+          alt="Design"
+        />
+        <div className="logo-container">
+          <h1 className="logo">Light-Spar</h1>
+          <p>A Social Networking App for finding like minded sparring partners in your area!</p>
         </div>
-        <div>
-          <label>
-            Password
-            <input
-              className="form-input"
-              type="password"
-              name="password"
-              value={userPayload.password}
-              onChange={onInputChange}
-            />
-            <FormError error={errors.password} />
-          </label>
-        </div>
-        <div>
-          <input type="submit" className="button" value="Sign In" />
-        </div>
-      </form>
+      </div>
+      <div className="grid-container form-container" onSubmit={onSubmit}>
+        <h3>Sign In</h3>
+        <form>
+          <div>
+            <label>
+              Email
+              <input
+                className="form-input"
+                type="text"
+                name="email"
+                value={userPayload.email}
+                onChange={onInputChange}
+              />
+              <FormError error={errors.email} />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password
+              <input
+                className="form-input"
+                type="password"
+                name="password"
+                value={userPayload.password}
+                onChange={onInputChange}
+              />
+              <FormError error={errors.password} />
+            </label>
+          </div>
+          <div>
+            <input type="submit" className="button" value="Sign In" />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

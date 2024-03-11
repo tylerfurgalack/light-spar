@@ -1,7 +1,8 @@
 @import "./foundation/settings";
 @import "~foundation-sites/scss/foundation";
 @include foundation-everything;
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap");
 
 // place global css here
 *,
@@ -116,14 +117,55 @@ body {
   /* Add more styles as needed */
 }
 
+.sign-in-background {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  position: relative;
+  background-image: url("https://light-spar-development.s3.amazonaws.com/Background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.sign-in-image-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.sign-in-image {
+  max-width: 50%;
+  max-height: 50%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  text-align: center;
+}
+.logo {
+  font-family: "Pacifico", cursive;
+  font-weight: 450;
+  font-style: normal;
+}
 .form-container {
   display: flex;
   flex-direction: column;
-  width: 75%;
-  margin: 0 auto;
+  width: 65%;
+  margin-bottom: 2%;
   border: solid black 1px;
   border-radius: 5px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.5);
+  background-color: whitesmoke;
 }
 
 .form-input {
