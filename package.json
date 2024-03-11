@@ -21,6 +21,7 @@
     "yarn": "1.22.19"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.6",
     "aws-sdk": "^2.1519.0"
   }
 }
