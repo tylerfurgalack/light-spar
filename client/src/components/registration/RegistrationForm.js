@@ -187,88 +187,90 @@ const RegistrationForm = () => {
     loadScript();
   }, []);
   return (
-    <div className="grid-container form-container">
-      <h1>Register</h1>
-      <ErrorList errors={serverErrors} />
-      <form onSubmit={onSubmit}>
-        <div>
-          <label>Your User Name</label>
-          <input
-            className="form-input"
-            type="text"
-            name="username"
-            value={userPayload.username}
-            onChange={onInputChange}
-          />
-          <FormError error={errors.username} />
-        </div>
-        <div>
-          <label>Your Weight (lbs)</label>
-          <input
-            className="form-input"
-            type="number"
-            name="weight"
-            value={userPayload.weight}
-            onChange={onInputChange}
-          />
-          <FormError error={errors.weight} />
-        </div>
-        <div>
-          <label>Your Location</label>
-          <input
-            className="form-input"
-            type="text"
-            name="location"
-            value={userPayload.location}
-            onChange={onInputChange}
-            ref={inputRef}
-          />
-          <FormError error={errors.location} />
-        </div>
-
-        <div>
-          <label>
-            Email
+    <div className="registration-background">
+      <div className="grid-container form-container">
+        <h1>Register</h1>
+        <ErrorList errors={serverErrors} />
+        <form onSubmit={onSubmit}>
+          <div>
+            <label className="form-labels">Your User Name</label>
             <input
               className="form-input"
               type="text"
-              name="email"
-              value={userPayload.email}
+              name="username"
+              value={userPayload.username}
               onChange={onInputChange}
             />
-            <FormError error={errors.email} />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password
+            <FormError error={errors.username} />
+          </div>
+          <div>
+            <label className="form-labels">Your Weight (lbs)</label>
             <input
               className="form-input"
-              type="password"
-              name="password"
-              value={userPayload.password}
+              type="number"
+              name="weight"
+              value={userPayload.weight}
               onChange={onInputChange}
             />
-            <FormError error={errors.password} />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password Confirmation
+            <FormError error={errors.weight} />
+          </div>
+          <div>
+            <label className="form-labels">Your Location</label>
             <input
               className="form-input"
-              type="password"
-              name="passwordConfirmation"
-              value={userPayload.passwordConfirmation}
+              type="text"
+              name="location"
+              value={userPayload.location}
               onChange={onInputChange}
+              ref={inputRef}
             />
-            <FormError error={errors.passwordConfirmation} />
-          </label>
-        </div>
-        <div>
-          <input type="submit" className="button" value="Register" />
-        </div>
-      </form>
+            <FormError error={errors.location} />
+          </div>
+
+          <div>
+            <label className="form-labels">
+              Email
+              <input
+                className="form-input"
+                type="text"
+                name="email"
+                value={userPayload.email}
+                onChange={onInputChange}
+              />
+              <FormError error={errors.email} />
+            </label>
+          </div>
+          <div>
+            <label className="form-labels">
+              Password
+              <input
+                className="form-input"
+                type="password"
+                name="password"
+                value={userPayload.password}
+                onChange={onInputChange}
+              />
+              <FormError error={errors.password} />
+            </label>
+          </div>
+          <div>
+            <label className="form-labels">
+              Password Confirmation
+              <input
+                className="form-input"
+                type="password"
+                name="passwordConfirmation"
+                value={userPayload.passwordConfirmation}
+                onChange={onInputChange}
+              />
+              <FormError error={errors.passwordConfirmation} />
+            </label>
+          </div>
+          <div>
+            <input type="submit" className="button" value="Register" />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

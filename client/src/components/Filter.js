@@ -11,7 +11,7 @@ const Filter = ({ onSubmit, onInputChange, onWeightChange, inputRef }) => {
     <div className="card  filter-container">
       <form onSubmit={onSubmit}>
         <h3>Filter by: </h3>
-        <label>Location:</label>
+        <label className="form-labels">Location:</label>
         <input
           type="text"
           name="location"
@@ -19,7 +19,7 @@ const Filter = ({ onSubmit, onInputChange, onWeightChange, inputRef }) => {
           onChange={onInputChange}
           ref={inputRef}
         ></input>
-        <label>Weight:</label>
+        <label className="form-labels">Weight:</label>
         <select name="Weight-Class" className="form-input" onChange={onWeightChange}>
           <option value="">Weight Class</option>
           <option value="flyweight">Flyweight (105-114lbs)</option>
