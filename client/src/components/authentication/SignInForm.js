@@ -87,7 +87,7 @@ const SignInForm = () => {
         <h3>Sign In</h3>
         <form>
           <div>
-            <label>
+            <label className="form-labels">
               Email
               <input
                 className="form-input"
@@ -100,7 +100,7 @@ const SignInForm = () => {
             </label>
           </div>
           <div>
-            <label>
+            <label className="form-labels">
               Password
               <input
                 className="form-input"
