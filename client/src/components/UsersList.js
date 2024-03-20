@@ -52,7 +52,6 @@ const UsersList = () => {
       return locationMatch && weightClassMatch;
     });
 
-    console.log(locationFilter);
     setFilteredProfileList(filteredUsers);
   };
 
@@ -126,10 +125,10 @@ const UsersList = () => {
         inputRef={inputRef}
       />
       <div className="grid-container">
-        {filterList.length === 0 ? (
-          <div className="grid-x grid-margin-x">{usersProfileList}</div>
-        ) : (
+        {locationFilter !== "" || weightClass !== "" ? (
           <div className="grid-x grid-margin-x">{filterList}</div>
+        ) : (
+          <div className="grid-x grid-margin-x">{usersProfileList}</div>
         )}
       </div>
     </div>

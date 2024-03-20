@@ -9,7 +9,7 @@ const ProfileTile = ({ profile }) => {
       </div>
       <div className="text-center">
         <div>{profile.username}</div>
-        <p>Weight:{profile.weight}</p>
+        <p>Weight:{profile.weight}lbs</p>
         <p>Location:{profile.location}</p>
         <Link to={`/users/${profile.id}`}>
           <div className="button">View Profile</div>

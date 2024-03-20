@@ -113,11 +113,13 @@ const ProfileShow = (props) => {
   };
 
   return (
-    <div className="profile-container">
+    <div className="profile-container card">
       <img className="profile-pic" src={profile.image}></img>
       <h3>{profile.username}</h3>
-      <h4>Weight: {profile.weight}</h4>
-      <p>description: {profile.description}</p>
+      <h4>Weight: {profile.weight}lbs</h4>
+      <div className="description-text-box">
+        <p>Description: {profile.description}</p>
+      </div>
 
       {buttonVisible ? (
         <button className="button" onClick={onInviteClickHandler}>

@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
+
 import { Link } from "react-router-dom";
 import SignOutButton from "../authentication/SignOutButton";
 
@@ -27,23 +28,17 @@ const TopBar = ({ user }) => {
   ];
 
   return (
-    <div>
-      {/* <div className="title-bar" data-responsive-toggle="responsive-menu" data-hide-for="medium">
-        <button className="menu-icon" type="button" data-toggle="responsive-menu"></button>
-        <div className="title-bar-title">Menu</div>
-      </div> */}
-      <div className="top-bar" id="responsive-menu">
-        <div className="top-bar-left">
-          <ul className="dropdown menu" data-dropdown-menu>
-            <li className="menu-text">Light-Spar</li>
-            <li className="top-bar-font">
-              <Link to="/">New Fighters</Link>
-            </li>
-          </ul>
-        </div>
-        <div className="top-bar-right">
-          <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
-        </div>
+    <div className="top-bar">
+      <div className="top-bar-left">
+        <ul className="dropdown menu" data-dropdown-menu>
+          <li id="menu-text">Light-Spar</li>
+          <li className="top-bar-font">
+            <Link to="/">New Fighters</Link>
+          </li>
+        </ul>
+      </div>
+      <div className="top-bar-right">
+        <ul className="menu">{user ? authenticatedListItems : unauthenticatedListItems}</ul>
       </div>
     </div>
   );
