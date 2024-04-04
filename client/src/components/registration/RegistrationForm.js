@@ -3,6 +3,7 @@ import FormError from "../layout/FormError";
 import ErrorList from "../layout/ErrorList";
 import translateServerErrors from "../../services/translateServerErrors";
 import config from "../../config";
+import { Loader } from "@googlemaps/js-api-loader";
 
 const RegistrationForm = () => {
   const [userPayload, setUserPayload] = useState({
@@ -132,59 +133,27 @@ const RegistrationForm = () => {
   const autoCompleteRef = useRef();
   const inputRef = useRef();
 
-  const initMap = () => {
-    const options = {
-      types: ["(cities)"],
-    };
-
-    autoCompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, options);
-    autoCompleteRef.current.addListener("place_changed", () => {
-      const selectedPlace = autoCompleteRef.current.getPlace();
-      if (selectedPlace && selectedPlace.formatted_address) {
-        console.log(`google listener`, userPayload);
-        setUserPayload((userPayloadPending) => {
-          return {
-            ...userPayloadPending,
-            location: selectedPlace.formatted_address,
-          };
-        });
-      }
-    });
-  };
-
   useEffect(() => {
-    const loadScript = () => {
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4&libraries=places`;
-      document.body.appendChild(script);
-      script.onload = () => initMap();
-    };
+    const loader = new Loader({
+      apiKey: "AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4",
+      version: "weekly",
+      libraries: ["places"],
+    });
 
-    // const initMap = () => {
-    //   const options = {
-    //     types: ["(cities)"],
-    //   };
+    loader.load().then(() => {
+      const options = {
+        types: ["(cities)"],
+      };
 
-    //   autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-    //     inputRef.current,
-    //     options
-    //   );
-    //   autoCompleteRef.current.addListener("place_changed", () => {
-    //     const selectedPlace = autoCompleteRef.current.getPlace();
-    //     if (selectedPlace && selectedPlace.formatted_address) {
-    //       console.log(`google listener`, userPayload);
-    //       setUserPayload((userPayloadPending) => {
-    //         return {
-    //           ...userPayloadPending,
-    //           location: selectedPlace.formatted_address,
-    //         };
-    //       });
-    //     }
-    //   });
-    // };
+      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+        inputRef.current,
+        options
+      );
 
-    loadScript();
+      autoCompleteRef.current.addListener("place_changed", () => {
+        const selectedPlace = autoCompleteRef.current.getPlace();
+      });
+    });
   }, []);
   return (
     <div className="registration-background">
