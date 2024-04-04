@@ -26,6 +26,7 @@ Ensure you have the following installed on your system:
    `git clone https://github.com/yourusername/Light-Spar.git`
 
 2. Navigate to the project directory:
+
    `cd Light-Spar`
 
 3. Install the dependencies:
@@ -33,6 +34,7 @@ Ensure you have the following installed on your system:
 With npm:
 
 `npm install`
+
 Or with yarn:
 
 `yarn install`
