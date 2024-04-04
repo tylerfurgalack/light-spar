@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
-const Filter = ({ onSubmit, onInputChange, onWeightChange, inputRef }) => {
+const Filter = ({
+  onSubmit,
+  onInputChange,
+  onWeightChange,
+  inputRef,
+  setWeightFilter,
+  setLocationFilter,
+}) => {
   // const [isVisible, setIsVisible] = useState(false);
 
   // const toggleVisibility = () => {
@@ -33,6 +40,15 @@ const Filter = ({ onSubmit, onInputChange, onWeightChange, inputRef }) => {
         </select>
         <div>
           <input type="submit" className="button" value="Submit" />
+          <input
+            type="reset"
+            className="button"
+            value="Reset"
+            onClick={() => {
+              setLocationFilter("");
+              setWeightFilter("");
+            }}
+          />
         </div>
       </form>
     </div>

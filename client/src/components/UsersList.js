@@ -66,47 +66,29 @@ const UsersList = () => {
   const autoCompleteRef = useRef();
   const inputRef = useRef();
 
-  const loader = new Loader({
-    apiKey: "AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4",
-    libraries: ["places"],
-  });
-
-  const initMap = () => {
-    const options = {
-      types: ["(cities)"],
-    };
-
-    autoCompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, options);
-    autoCompleteRef.current.addListener("place_changed", () => {
-      const selectedPlace = autoCompleteRef.current.getPlace();
-    });
-  };
-
   useEffect(() => {
+    const loader = new Loader({
+      apiKey: "AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4",
+      version: "weekly",
+      libraries: ["places"],
+    });
+
+    loader.load().then(() => {
+      const options = {
+        types: ["(cities)"],
+      };
+
+      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+        inputRef.current,
+        options
+      );
+
+      autoCompleteRef.current.addListener("place_changed", () => {
+        const place = autoCompleteRef.current.getPlace();
+        setLocationFilter(place.formatted_address);
+      });
+    });
     getUsersData();
-    const loadScript = () => {
-      const script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4&libraries=places`;
-      document.body.appendChild(script);
-      script.onload = () => initMap();
-    };
-
-    // const initMap = () => {
-    //   const options = {
-    //     types: ["(cities)"],
-    //   };
-
-    //   autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-    //     inputRef.current,
-    //     options
-    //   );
-    //   autoCompleteRef.current.addListener("place_changed", () => {
-    //     const selectedPlace = autoCompleteRef.current.getPlace();
-    //   });
-    // };
-
-    loadScript();
   }, []);
 
   const usersProfileList = users.map((profile) => {
@@ -123,6 +105,8 @@ const UsersList = () => {
         onInputChange={onInputChange}
         onWeightChange={onWeightChange}
         inputRef={inputRef}
+        setLocationFilter={setLocationFilter}
+        setWeightFilter={setWeightClass}
       />
       <div className="grid-container">
         {locationFilter !== "" || weightClass !== "" ? (
