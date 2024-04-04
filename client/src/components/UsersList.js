@@ -84,10 +84,10 @@ const UsersList = () => {
       );
 
       autoCompleteRef.current.addListener("place_changed", () => {
-        const selectedPlace = autoCompleteRef.current.getPlace();
+        const place = autoCompleteRef.current.getPlace();
+        setLocationFilter(place.formatted_address);
       });
     });
-
     getUsersData();
   }, []);
 
@@ -105,6 +105,8 @@ const UsersList = () => {
         onInputChange={onInputChange}
         onWeightChange={onWeightChange}
         inputRef={inputRef}
+        setLocationFilter={setLocationFilter}
+        setWeightFilter={setWeightClass}
       />
       <div className="grid-container">
         {locationFilter !== "" || weightClass !== "" ? (

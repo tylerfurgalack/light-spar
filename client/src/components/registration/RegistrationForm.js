@@ -152,6 +152,11 @@ const RegistrationForm = () => {
 
       autoCompleteRef.current.addListener("place_changed", () => {
         const selectedPlace = autoCompleteRef.current.getPlace();
+        inputRef.current.value = selectedPlace.formatted_address;
+        setUserPayload((prevState) => ({
+          ...prevState,
+          location: selectedPlace.formatted_address,
+        }));
       });
     });
   }, []);
