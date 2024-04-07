@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
+import io from "socket.io-client";
 
 import getCurrentUser from "../services/getCurrentUser";
 import "../assets/scss/main.scss";
@@ -15,10 +16,26 @@ import ChatsList from "./ChatsList";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [socket, setSocket] = useState(null);
+
   const fetchCurrentUser = async () => {
     try {
       const user = await getCurrentUser();
       setCurrentUser(user);
+
+      if (user) {
+        const newSocket = io("http://localhost:3001", { query: { userId: user.id } });
+
+        newSocket.on("connect", () => {
+          console.log(`Connected to server as user ${user.id}`);
+        });
+
+        newSocket.on("disconnect", () => {
+          console.log(`Disconnected from server`);
+        });
+
+        setSocket(newSocket);
+      }
     } catch (err) {
       setCurrentUser(null);
     }
@@ -27,6 +44,14 @@ const App = (props) => {
   useEffect(() => {
     fetchCurrentUser();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, [socket]);
 
   return (
     <Router>
@@ -48,11 +73,11 @@ const App = (props) => {
         <AuthenticatedRoute
           exact
           path="/users/:id"
-          // render={(props) => {
-          //   return <ProfileShow user={currentUser} {...props} />;
-          // }}
+          render={(props) => {
+            return <ProfileShow user={currentUser} {...props} socket={socket} />;
+          }}
           user={currentUser}
-          component={ProfileShow}
+          // component={ProfileShow}
         />
       </Switch>
     </Router>

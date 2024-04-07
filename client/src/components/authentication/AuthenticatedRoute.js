@@ -1,23 +1,28 @@
 import React from "react";
 import { Redirect, Route } from "react-router";
 
-const AuthenticationCheck = ({ component: Component, user, ...rest }) => {
+const AuthenticationCheck = ({ component: Component, render: Render, user, ...rest }) => {
   if (user === undefined) {
     return <div>Loading...</div>;
   }
   if (user !== null) {
-    return <Component user={user} {...rest} />;
+    if (Component) {
+      return <Component user={user} {...rest} />;
+    }
+    if (Render) {
+      return <Render user={user} {...rest} />;
+    }
   }
   return <Redirect to="/user-sessions/new" />;
 };
 
-const AuthenticatedRoute = ({ component, user, ...rest }) => {
+const AuthenticatedRoute = ({ component, render, user, ...rest }) => {
   return (
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
     >
-      <AuthenticationCheck user={user} component={component} {...rest} />
+      <AuthenticationCheck user={user} component={component} render={render} {...rest} />
     </Route>
   );
 };

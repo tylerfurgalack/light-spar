@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getForeignUser from "../services/getForeignUser.js";
+import ChatWindow from "./ChatWindow.js";
 
 const ProfileShow = (props) => {
   const [profile, setProfile] = useState({
@@ -14,11 +15,23 @@ const ProfileShow = (props) => {
   const profileId = props.computedMatch.params.id;
 
   useEffect(() => {
-    getForeignUser(profileId).then((parseProfileData) => {
-      setProfile(parseProfileData);
-      // Check if a chat exists between current user and profile being viewed
-      checkChatRelation(props.user.id, profileId);
-    });
+    let isMounted = true; // track whether component is mounted
+
+    const fetchData = async () => {
+      const parseProfileData = await getForeignUser(profileId);
+      if (isMounted) {
+        setProfile(parseProfileData);
+        // Check if a chat exists between current user and profile being viewed
+        await checkChatRelation(props.user.id, profileId);
+      }
+    };
+
+    fetchData();
+
+    // cleanup function
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const checkChatRelation = async (currentUserId, viewedProfileId) => {
@@ -113,26 +126,29 @@ const ProfileShow = (props) => {
   };
 
   return (
-    <div className="profile-container card">
-      <img className="profile-pic" src={profile.image}></img>
-      <h3>{profile.username}</h3>
-      <h4>Weight: {profile.weight}lbs</h4>
-      <div className="description-text-box">
-        <p>Description: {profile.description}</p>
-      </div>
-
-      {buttonVisible ? (
-        <button className="button" onClick={onInviteClickHandler}>
-          Invite
-        </button>
-      ) : (
-        <div>
-          <button className="button">Message</button>
-          <button className="button" onClick={onDeleteClickHandler}>
-            Delete Partner
-          </button>
+    <div className="card-container">
+      <div className="profile-container card">
+        <img className="profile-pic" src={profile.image}></img>
+        <h3>{profile.username}</h3>
+        <h4>Weight: {profile.weight}lbs</h4>
+        <div className="description-text-box">
+          <p>Description: {profile.description}</p>
         </div>
-      )}
+
+        {buttonVisible ? (
+          <button className="button" onClick={onInviteClickHandler}>
+            Invite
+          </button>
+        ) : (
+          <div>
+            <button className="button">Message</button>
+            <button className="button" onClick={onDeleteClickHandler}>
+              Delete Partner
+            </button>
+          </div>
+        )}
+      </div>
+      <ChatWindow socket={props.socket} />
     </div>
   );
 };
