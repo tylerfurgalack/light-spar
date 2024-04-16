@@ -113,7 +113,9 @@ const ProfileShow = (props) => {
 
   const onDeleteClickHandler = (event) => {
     event.preventDefault();
-    const prompt = window.confirm("Are you sure you want to delete this partner?");
+    const prompt = window.confirm(
+      "Are you sure you want to delete this partner? All messages will be lost."
+    );
 
     if (prompt) {
       const deleteChat = {

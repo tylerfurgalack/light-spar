@@ -6,7 +6,7 @@ class Chat extends Model {
   }
 
   static get relationMappings() {
-    const { User } = require("./index.js");
+    const { User, Message } = require("./index.js");
 
     return {
       user: {
@@ -15,6 +15,14 @@ class Chat extends Model {
         join: {
           from: "chats.senderId",
           to: "users.id",
+        },
+      },
+      messages: {
+        relation: Model.HasManyRelation,
+        modelClass: Message,
+        join: {
+          from: "chats.id",
+          to: "messages.chatId",
         },
       },
     };

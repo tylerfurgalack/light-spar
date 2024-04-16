@@ -50,7 +50,7 @@ class User extends uniqueFunc(Model) {
   }
 
   static get relationMappings() {
-    const { Chat } = require("./index.js");
+    const { Chat, Message } = require("./index.js");
 
     return {
       chats: {
@@ -59,6 +59,14 @@ class User extends uniqueFunc(Model) {
         join: {
           from: "users.id",
           to: "chats.senderId",
+        },
+      },
+      messages: {
+        relation: Model.HasManyRelation,
+        modelClass: Message,
+        join: {
+          from: "users.id",
+          to: "messages.senderId",
         },
       },
     };
