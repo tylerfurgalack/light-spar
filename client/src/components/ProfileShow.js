@@ -11,6 +11,7 @@ const ProfileShow = (props) => {
   });
   const [buttonVisible, setButtonVisible] = useState(true);
   const [chatExists, setChatExists] = useState(false);
+  const [chatID, setChatID] = useState(null);
 
   const profileId = props.computedMatch.params.id;
 
@@ -28,11 +29,15 @@ const ProfileShow = (props) => {
 
     fetchData();
 
+    if (chatExists) {
+      fetchMessages(chatID);
+    }
+
     // cleanup function
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [chatExists, chatID]);
 
   const checkChatRelation = async (currentUserId, viewedProfileId) => {
     try {
@@ -45,12 +50,25 @@ const ProfileShow = (props) => {
       // If a chat relation exists, hide the button
       if (exists) {
         setButtonVisible(false);
+        setChatID(exists.id);
       }
     } catch (error) {
       console.error(`Error checking chat relation: ${error.message}`);
     }
   };
 
+  const fetchMessages = async (chatId) => {
+    try {
+      const response = await fetch(`/api/v1/messages?chatId=${chatId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setMessages(data);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  };
   const createNewChat = async (newChat) => {
     try {
       const response = await fetch(`/api/v1/chats`, {
@@ -62,6 +80,7 @@ const ProfileShow = (props) => {
       });
       if (response.ok) {
         // Hide the button after successful chat creation
+
         setButtonVisible(false);
       } else if (!response.ok) {
         if (response.status === 422) {
@@ -92,6 +111,7 @@ const ProfileShow = (props) => {
       if (response.ok) {
         setButtonVisible(true); // Show the button again after successful deletion
         setChatExists(false); // Update chatExists state to indicate chat deletion
+        setChatID(null); // Reset chatID state
       } else {
         // Handle other response scenarios here
       }
