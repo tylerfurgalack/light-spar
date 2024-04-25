@@ -36,10 +36,15 @@ body {
   background-color: rgb(162, 18, 18);
 }
 
+.top-bar {
+  border-bottom: solid black 2px;
+  margin-bottom: 1%;
+}
+
 .top-bar-font {
   color: black;
   font-family: "Roboto", sans-serif;
-  font-weight: bold;
+  font-weight: bolder;
   font-size: 16;
 }
 
