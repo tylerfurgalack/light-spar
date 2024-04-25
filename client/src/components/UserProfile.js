@@ -1,12 +1,25 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Dropzone from "react-dropzone";
 import getProfileImage from "../services/getProfileImage";
+import googlePlacesAPI from "../services/googlePlacesAPI";
 
 const UserProfile = (props) => {
-  const [imageData, setImageData] = useState({
-    image: {},
+  const [userPayload, setUserPayload] = useState({
+    username: props.user.username,
+    weight: props.user.weight,
+    location: props.user.location,
+    email: props.user.email,
+    description: props.user.description,
+    image: props.user.image,
   });
+
+  const onInputChange = (event) => {
+    setUserPayload({
+      ...userPayload,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
 
   const handleImageUpload = (acceptedImage) => {
     setImageData({
@@ -26,10 +39,19 @@ const UserProfile = (props) => {
     });
   };
 
+  const autoCompleteRef = useRef();
+  const inputRef = useRef();
+  useEffect(() => {
+    googlePlacesAPI(inputRef, autoCompleteRef, setUserPayload, userPayload);
+  }, []);
+  const [imageData, setImageData] = useState({
+    image: {},
+  });
+
   return (
-    <div className="profile-container card">
+    <div className="grid-container form-container">
       <img className="profile-pic" src={props.user.image}></img>
-      <form className="profile-pic-form" onSubmit={addProfileImage}>
+      <form onSubmit={addProfileImage}>
         <Dropzone onDrop={handleImageUpload}>
           {({ getRootProps, getInputProps }) => (
             <section>
@@ -42,12 +64,57 @@ const UserProfile = (props) => {
             </section>
           )}
         </Dropzone>
-        <input className="button" type="submit"></input>
+
+        <label className="form-labels">
+          Username:
+          <input
+            className="form-input"
+            type="text"
+            name="username"
+            placeholder={props.user.username}
+          ></input>
+          <label className="form-labels">
+            Location:
+            <input
+              className="form-input"
+              type="text"
+              name="location"
+              onChange={onInputChange}
+              placeholder={props.user.location}
+              ref={inputRef}
+            ></input>
+          </label>
+        </label>
+        <label className="form-labels">
+          Weight:
+          <input
+            className="form-input"
+            type="number"
+            name="weight"
+            placeholder={props.user.weight}
+          ></input>
+        </label>
+        <label className="form-labels">
+          Email:
+          <input
+            className="form-input"
+            type="text"
+            name="email"
+            placeholder={props.user.email}
+          ></input>
+        </label>
+        <label className="form-labels">
+          Description:
+          <input
+            className="form-input"
+            type="text"
+            name="description"
+            placeholder={props.user.description}
+          ></input>
+        </label>
+
+        <input className="button" type="submit" value="Save Changes"></input>
       </form>
-      <h3>{props.user.username}</h3>
-      <h4>Weight: {props.user.weight}lbs</h4>
-      <p>{props.user.email}</p>
-      <p>{props.user.description}</p>
     </div>
   );
 };

@@ -30,6 +30,8 @@ body {
   border-radius: 5px;
   padding: 10px 20px;
   transition: background-color 0.1s ease-in-out;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .button:hover {
@@ -219,6 +221,11 @@ body {
   border: 1.5px solid black;
   min-width: auto;
   border-radius: 2px;
+}
+.form-input::placeholder {
+  color: black;
+  opacity: 1;
+  font-weight: bold;
 }
 
 .form-labels {
