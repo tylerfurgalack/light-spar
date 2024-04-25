@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Loader } from "@googlemaps/js-api-loader";
+
 import Filter from "./Filter";
 
 import ProfileTile from "./ProfileTile";
+import googlePlacesAPIFilter from "../services/googlePacesAPIFilter";
 
 const ChatsList = () => {
   const [users, setUsers] = useState([]);
@@ -67,39 +68,8 @@ const ChatsList = () => {
   const autoCompleteRef = useRef();
   const inputRef = useRef();
 
-  // const initMap = () => {
-  //   const options = {
-  //     types: ["(cities)"],
-  //   };
-
-  //   autoCompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, options);
-  //   autoCompleteRef.current.addListener("place_changed", () => {
-  //     const selectedPlace = autoCompleteRef.current.getPlace();
-  //   });
-  // };
-
   useEffect(() => {
-    const loader = new Loader({
-      apiKey: "AIzaSyDLGIItpnt5wyW2QbJxY3PIHDMxm-bRSg4",
-      version: "weekly",
-      libraries: ["places"],
-    });
-
-    loader.load().then(() => {
-      const options = {
-        types: ["(cities)"],
-      };
-
-      autoCompleteRef.current = new window.google.maps.places.Autocomplete(
-        inputRef.current,
-        options
-      );
-
-      autoCompleteRef.current.addListener("place_changed", () => {
-        const place = autoCompleteRef.current.getPlace();
-        setLocationFilter(place.formatted_address);
-      });
-    });
+    googlePlacesAPIFilter(inputRef, autoCompleteRef, setLocationFilter, locationFilter);
     getUsersForChats();
   }, []);
 
