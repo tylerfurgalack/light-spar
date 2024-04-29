@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import ProfileTile from "./ProfileTile";
 import Filter from "./Filter";
-import { Loader } from "@googlemaps/js-api-loader";
+
 import googlePlacesAPIFilter from "../services/googlePacesAPIFilter";
 
 const UsersList = () => {
