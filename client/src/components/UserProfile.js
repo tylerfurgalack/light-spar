@@ -21,11 +21,45 @@ const UserProfile = (props) => {
     });
   };
 
-  const handleImageUpload = (acceptedImage) => {
-    setImageData({
-      ...imageData,
-      image: acceptedImage[0],
+  const handleImageUpload = (acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader();
+
+      // Only process file if it's JPEG or PNG
+      if (!file.type.includes("image/jpeg") && !file.type.includes("image/png")) {
+        alert(`${file.name} is not a valid image file (JPEG or PNG only).`);
+      }
+
+      reader.onabort = () => console.log("file reading was aborted");
+      reader.onerror = () => console.log("file reading has failed");
+      reader.onload = () => {
+        // Do whatever you want with the file contents
+        const binaryStr = reader.result;
+        setImageData({
+          ...imageData,
+          image: acceptedFiles[0],
+        });
+      };
+      reader.readAsArrayBuffer(file);
     });
+  };
+
+  const handleFormSubmit = async (event) => {
+    // Create a function to handle form submission
+    event.preventDefault();
+    try {
+      const response = await fetch(`/api/v1/user-sessions/current`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userPayload),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const addProfileImage = async (event) => {
@@ -50,28 +84,33 @@ const UserProfile = (props) => {
 
   return (
     <div className="grid-container form-container">
-      <img className="profile-pic" src={props.user.image}></img>
-      <form onSubmit={addProfileImage}>
-        <Dropzone onDrop={handleImageUpload}>
-          {({ getRootProps, getInputProps }) => (
-            <section>
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <div className="drag-n-drop">
-                  <p>Upload A Picture - drag 'n' drop or click to upload</p>
+      <form className="dropzone-form" onSubmit={addProfileImage}>
+        <img className="profile-pic" src={props.user.image}></img>
+        <div className="dropzone">
+          <Dropzone onDrop={handleImageUpload}>
+            {({ getRootProps, getInputProps }) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <div className="drag-n-drop">
+                    <p>Upload A Picture - drag 'n' drop or click to upload</p>
+                  </div>
                 </div>
-              </div>
-            </section>
-          )}
-        </Dropzone>
-
+              </section>
+            )}
+          </Dropzone>
+        </div>
+        <input className="button" type="submit" value="Save Image"></input>
+      </form>
+      <form onSubmit={handleFormSubmit}>
         <label className="form-labels">
           Username:
           <input
             className="form-input"
             type="text"
             name="username"
-            placeholder={props.user.username}
+            value={userPayload.username}
+            onChange={onInputChange}
           ></input>
           <label className="form-labels">
             Location:
@@ -80,8 +119,8 @@ const UserProfile = (props) => {
               type="text"
               name="location"
               onChange={onInputChange}
-              placeholder={props.user.location}
               ref={inputRef}
+              value={userPayload.location}
             ></input>
           </label>
         </label>
@@ -91,7 +130,8 @@ const UserProfile = (props) => {
             className="form-input"
             type="number"
             name="weight"
-            placeholder={props.user.weight}
+            onChange={onInputChange}
+            value={userPayload.weight}
           ></input>
         </label>
         <label className="form-labels">
@@ -100,7 +140,8 @@ const UserProfile = (props) => {
             className="form-input"
             type="text"
             name="email"
-            placeholder={props.user.email}
+            onChange={onInputChange}
+            value={userPayload.email}
           ></input>
         </label>
         <label className="form-labels">
@@ -109,7 +150,8 @@ const UserProfile = (props) => {
             className="form-input"
             type="text"
             name="description"
-            placeholder={props.user.description}
+            onChange={onInputChange}
+            value={userPayload.description}
           ></input>
         </label>
 
