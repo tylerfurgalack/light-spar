@@ -33,9 +33,6 @@ Ensure you have the following installed on your system:
 With npm:
 
 `npm install`
-Or with yarn:
-
-`yarn install`
 
 4. Navigate to the server directory:
 
@@ -51,19 +48,11 @@ With npm:
 
 `npm run knex migrate:latest`
 
-Or with yarn:
-
-`yarn knex migrate:latest`
-
 8. Seed the database:
 
 With npm:
 
 `npm run knex seed:run`
-
-Or with yarn:
-
-`yarn knex seed:run`
 
 9. Navigate back to the root directory:
 
@@ -74,10 +63,6 @@ Or with yarn:
 With npm:
 
 `npm start`
-
-Or with yarn:
-
-`yarn start`
 
 ## Usage
 
